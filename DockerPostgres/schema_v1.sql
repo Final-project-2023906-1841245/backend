@@ -10,7 +10,7 @@ CREATE DATABASE mande_db
 
 \c mande_db
 
-CREATE TABLE usuario(
+CREATE TABLE users(
 	user_phone BIGINT PRIMARY KEY,
   user_name TEXT UNIQUE NOT NULL,
 	email TEXT NOT NULL
