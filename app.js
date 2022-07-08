@@ -3,6 +3,9 @@ const {Pool} = require('pg')
 const bodyParser = require('body-parser')
 const app = express()
 const port = 5000
+const cors = require('cors');
+app.use(cors());
+app.options('*', cors());
 //Body-parser for post request:
 app.use(bodyParser.urlencoded({extended:true}))
 app.use(bodyParser.json())
@@ -10,9 +13,10 @@ app.use(bodyParser.json())
 var mensaje = ""
 const config = {
   user: 'postgres',
-  host: 'localhost',
+  host: 'postgres',
   password: 'pg123',
-  database: 'postgres'
+  database: 'mande_db',
+  port: 5432
 }
 const pool = new Pool(config)
 
