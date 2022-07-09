@@ -13,7 +13,7 @@ app.use(bodyParser.json())
 var mensaje = ""
 const config = {
   user: 'postgres',
-  host: 'postgres',
+  host: 'mande_db',
   password: 'pg123',
   database: 'mande_db',
   port: 5432

@@ -11,7 +11,7 @@ CREATE DATABASE mande_db
 \c mande_db
 
 CREATE TABLE users(
-	user_phone BIGINT PRIMARY KEY,
+	user_phone TEXT PRIMARY KEY,
   user_name TEXT UNIQUE NOT NULL,
 	email TEXT NOT NULL
 );
