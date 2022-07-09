@@ -4,6 +4,8 @@ const bodyParser = require('body-parser')
 const app = express()
 const port = 5000
 const cors = require('cors');
+const http = require('http');
+const fetch = require('node-fetch') ; 
 app.use(cors());
 app.options('*', cors());
 //Body-parser for post request:
@@ -30,6 +32,16 @@ const insertUser = async(values) =>{
   return answer
 }
 
+const geocode = async(address)=>{
+  const encodedAddress = encodeURIComponent(address).replaceAll("2C", ",")
+  const key = 'ed56555d4bc461f0a49d040823bd24a0'
+  const url = `http://api.positionstack.com/v1/forward?access_key=${key}&query=${encodedAddress}`
+  fetch(url)
+    .then(res => res.json())
+    .then(data=>console.log(data.data[0].latitude))
+}
+
+
 app.post("/userlogin", async(req, res)=>{
   var email = req.body.useremail
   var phone = req.body.userphone
@@ -55,6 +67,6 @@ app.post("/usersignup", async(req, res)=>{
     res.send(false)
   }
 })
-
+geocode("1600 Pennsylvania Ave NW, Washington DC")
 app.listen(port, ()=>{
   console.log("The server is running on port 5000") });
