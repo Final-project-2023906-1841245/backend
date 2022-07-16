@@ -1,7 +1,15 @@
+# syntax=docker/dockerfile:1
+
 FROM node:16
+ENV NODE_ENV=production
 
 WORKDIR /app
-COPY package.json /app
-RUN npm install
+
+COPY ["package.json", "package-lock.json*", "./"]
+
+RUN npm install --production
+
+COPY . .
 EXPOSE 5000
-CMD ["node", "app.js"]
+
+CMD [ "node", "app.js" ]
