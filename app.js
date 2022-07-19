@@ -21,18 +21,15 @@ const config = {
 };
 const pool = new Pool(config);
 
-const getUser = async (values) => {
-  const answer = await pool.query(
-    "SELECT * FROM users WHERE user_phone=$1 AND email=$2",
-    values
-  );
-  return answer;
-};
-
 const insertUser = async (values) => {
   const answer = await pool.query("INSERT INTO users VALUES($1,$2,$3)", values);
   return answer;
 };
+
+const getWorks = async ()=>{
+  const answer = await pool.query("SELECT work_name FROM works");
+  return answer;
+}
 
 const geocode = async (address) => {
   const encodedAddress = encodeURIComponent(address).replaceAll("%2C", ",");
@@ -78,6 +75,14 @@ app.post("/usersignup", async (req, res) => {
     res.send(false);
   }
 });
+
+// app.get("/employeesignup", async(req, res)=>{
+//   const works = await getWorks();
+//   console.log(works)
+//   if(works.rows.length != 0){
+//     res.send(works.rows)
+//   }
+// })
 
 app.listen(port, () => {
   console.log("The server is running on port 5000");

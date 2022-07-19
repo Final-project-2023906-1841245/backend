@@ -15,3 +15,9 @@ CREATE TABLE users(
   user_name TEXT UNIQUE NOT NULL,
 	email TEXT NOT NULL
 );
+
+CREATE TABLE works(
+	id_work INTEGER PRIMARY KEY,
+  work_name TEXT UNIQUE NOT NULL,
+	
+);
