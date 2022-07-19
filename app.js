@@ -84,13 +84,13 @@ app.post("/usersignup", async (req, res) => {
   }
 });
 
-// app.get("/employeesignup", async(req, res)=>{
-//   const works = await getWorks();
-//   console.log(works)
-//   if(works.rows.length != 0){
-//     res.send(works.rows)
-//   }
-// })
+app.get("/employeesignup", async (req, res) => {
+  const works = await getWorks();
+  console.log(works);
+  if (works.rows.length != 0) {
+    res.send(works.rows);
+  }
+});
 
 app.listen(port, () => {
   console.log("The server is running on port 5000");

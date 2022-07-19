@@ -18,6 +18,5 @@ CREATE TABLE users(
 
 CREATE TABLE works(
 	id_work INTEGER PRIMARY KEY,
-  work_name TEXT UNIQUE NOT NULL,
-	
+  work_name TEXT UNIQUE NOT NULL	
 );
