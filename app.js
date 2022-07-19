@@ -21,15 +21,23 @@ const config = {
 };
 const pool = new Pool(config);
 
+const getUser = async (values) => {
+  const answer = await pool.query(
+    "SELECT * FROM users WHERE user_phone=$1 AND email=$2",
+    values
+  );
+  return answer;
+};
+
 const insertUser = async (values) => {
   const answer = await pool.query("INSERT INTO users VALUES($1,$2,$3)", values);
   return answer;
 };
 
-const getWorks = async ()=>{
+const getWorks = async () => {
   const answer = await pool.query("SELECT work_name FROM works");
   return answer;
-}
+};
 
 const geocode = async (address) => {
   const encodedAddress = encodeURIComponent(address).replaceAll("%2C", ",");
