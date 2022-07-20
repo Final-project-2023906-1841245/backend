@@ -16,6 +16,13 @@ CREATE TABLE users(
 	email TEXT NOT NULL
 );
 
+CREATE TABLE employees(
+	id_employee TEXT PRIMARY KEY,
+  employee_name TEXT UNIQUE NOT NULL,
+  email TEXT NOT NULL,
+	isFree BOOLEAN
+);
+
 CREATE TABLE works(
 	id_work INTEGER PRIMARY KEY,
   work_name TEXT UNIQUE NOT NULL	

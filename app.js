@@ -29,8 +29,21 @@ const getUser = async (values) => {
   return answer;
 };
 
+const getEmployee = async (values) => {
+  const answer = await pool.query(
+    "SELECT * FROM employees WHERE id_employee=$1",
+    values
+  );
+  return answer;
+};
+
 const insertUser = async (values) => {
   const answer = await pool.query("INSERT INTO users VALUES($1,$2,$3)", values);
+  return answer;
+};
+
+const insertEmployee = async (values) => {
+  const answer = await pool.query("INSERT INTO employees VALUES($1,$2,$3)", values);
   return answer;
 };
 
@@ -68,6 +81,17 @@ app.post("/userlogin", async (req, res) => {
   }
 });
 
+app.post("/employeelogin", async (req, res) => {
+  var id = req.body.employeeid;
+  const values = [id];
+  const answer = await getEmployee(values);
+  if (answer.rows.length == 0) {
+    res.send(false);
+  } else {
+    res.send(true);
+  }
+});
+
 app.post("/usersignup", async (req, res) => {
   var name = req.body.username;
   var email = req.body.useremail;
@@ -84,7 +108,23 @@ app.post("/usersignup", async (req, res) => {
   }
 });
 
-app.get("/employeesignup", async (req, res) => {
+app.post("/employeesignup", async (req, res) => {
+  var name = req.body.employeename;
+  var email = req.body.employeeemail;
+  var id = req.body.employeeid;
+  var address = req.body.employeeaddress;
+  geocode(address);
+  const values = [id, name, email];
+  const searchEmployee = await getEmployee([id]);
+  if (searchEmployee.rows.length == 0) {
+    await insertEmployee(values);
+    res.send(true);
+  } else {
+    res.send(false);
+  }
+});
+
+app.get("/employeeworks", async (req, res) => {
   const works = await getWorks();
   console.log(works);
   if (works.rows.length != 0) {
