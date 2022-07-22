@@ -26,6 +26,7 @@ const getUser = async (values) => {
     "SELECT * FROM users WHERE user_phone=$1 AND email=$2",
     values
   );
+  console.log(answer)
   return answer;
 };
 
@@ -39,10 +40,13 @@ const getEmployee = async (values) => {
 
 const insertUser = async (values) => {
   const answer = await pool.query("INSERT INTO users VALUES($1,$2,$3)", values);
+  console.log(values+ "-----------");
   return answer;
 };
 
 const insertEmployee = async (values) => {
+
+  
   const answer = await pool.query("INSERT INTO employees VALUES($1,$2,$3)", values);
   return answer;
 };
