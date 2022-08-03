@@ -1,3 +1,6 @@
+# MANDE
+Mande, es una aplicación que permite, conseguir personas trabajadoras, expertas y honestas para realizar a domicilio labores del día a día en el hogar.  
+
 # Pasos para levantar el backend y la base de datos
 
 ---
