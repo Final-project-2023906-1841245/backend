@@ -80,7 +80,7 @@ docker build -t ${USER_NAME}/mande_backend   .
 ```
 docker run -it --rm -p 5000:5000 --link mande_db:postgres --name mande_app -v $(pwd):/app ${USER_NAME}/mande_backend
 ```
-3- Finalmente ejecute el siguiente comando desplegar los contenedores:
+4- Finalmente ejecute el siguiente comando desplegar los contenedores:
 
 ```
 . script.sh
