@@ -1,3 +1,6 @@
+# MANDE
+Mande, es una aplicación que permite, conseguir personas trabajadoras, expertas y honestas para realizar a domicilio labores del día a día en el hogar.  
+
 # Pasos para levantar el backend y la base de datos
 
 ---
@@ -76,4 +79,9 @@ docker build -t ${USER_NAME}/mande_backend   .
 
 ```
 docker run -it --rm -p 5000:5000 --link mande_db:postgres --name mande_app -v $(pwd):/app ${USER_NAME}/mande_backend
+```
+4- Finalmente ejecute el siguiente comando desplegar los contenedores:
+
+```
+. script.sh
 ```
