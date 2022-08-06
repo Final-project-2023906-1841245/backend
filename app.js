@@ -14,7 +14,7 @@ app.use(bodyParser.json());
 var mensaje = "";
 const config = {
   user: "postgres",
-  host: "mande_db",
+  host: "localhost",
   password: "pg123",
   database: "mande_db",
   port: 5432,
@@ -26,7 +26,13 @@ const getUser = async (values) => {
     "SELECT * FROM users WHERE user_phone=$1 AND email=$2",
     values
   );
-  console.log(answer)
+  return answer;
+};
+
+const getUser1 = async (values) => {
+  const answer = await pool.query(
+    "SELECT * FROM users WHERE user_phone=$1",[values]
+  );
   return answer;
 };
 
@@ -40,7 +46,6 @@ const getEmployee = async (values) => {
 
 const insertUser = async (values) => {
   const answer = await pool.query("INSERT INTO users VALUES($1,$2,$3)", values);
-  console.log(values+ "-----------");
   return answer;
 };
 
@@ -96,6 +101,14 @@ app.post("/employeelogin", async (req, res) => {
   }
 });
 
+app.post("/userprincipalpage", async (req, res) => {
+  var idphone = req.body.phone
+  const userInfo = await getUser1(idphone);
+  if (userInfo.rows.length !== 0) {
+    res.send(JSON.stringify(userInfo.rows));
+  } 
+});
+
 app.post("/usersignup", async (req, res) => {
   var name = req.body.username;
   var email = req.body.useremail;
@@ -130,7 +143,6 @@ app.post("/employeesignup", async (req, res) => {
 
 app.get("/employeeworks", async (req, res) => {
   const works = await getWorks();
-  console.log(works);
   if (works.rows.length != 0) {
     res.send(works.rows);
   }
