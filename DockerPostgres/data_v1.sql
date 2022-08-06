@@ -16,4 +16,4 @@ INSERT INTO works(id_work, work_name) VALUES (4, 'Teacher musician');
 INSERT INTO works(id_work, work_name) VALUES (5, 'Driver');
 
 /* Initial employeework */
-INSERT INTO employeework('1003952041', 2, 10000);
+INSERT INTO employeework VALUES ('1003952041', 2, 10000);

@@ -30,9 +30,9 @@ const getUser = async (values) => {
 };
 
 const getUser1 = async (values) => {
-  const answer = await pool.query(
-    "SELECT * FROM users WHERE user_phone=$1",[values]
-  );
+  const answer = await pool.query("SELECT * FROM users WHERE user_phone=$1", [
+    values,
+  ]);
   return answer;
 };
 
@@ -50,12 +50,28 @@ const insertUser = async (values) => {
 };
 
 const insertEmployee = async (values) => {
-
-  
-  const answer = await pool.query("INSERT INTO employees VALUES($1,$2,$3)", values);
+  const answer = await pool.query(
+    "INSERT INTO employees VALUES($1,$2,$3)",
+    values
+  );
   return answer;
 };
+const insertWorks = async (val) => {
+  for (i = 0; i < val[1].length; i++) {
+    console.log("Me he ejecutado");
+    var id_work = await getIdWork([val[1][i]]);
+    var values = [val[0], id_work, val[2][i]];
+    await pool.query("INSERT INTO employeework VALUES ($1, $2, $3)", values);
+  }
+};
 
+const getIdWork = async (workname) => {
+  const id = await pool.query(
+    "SELECT id_work FROM works WHERE work_name=$1",
+    workname
+  );
+  return id.rows[0].id_work;
+};
 const getWorks = async () => {
   const answer = await pool.query("SELECT work_name FROM works");
   return answer;
@@ -102,13 +118,27 @@ app.post("/employeelogin", async (req, res) => {
 });
 
 app.post("/userprincipalpage", async (req, res) => {
-  var idphone = req.body.phone
+  var idphone = req.body.phone;
   const userInfo = await getUser1(idphone);
   if (userInfo.rows.length !== 0) {
     res.send(JSON.stringify(userInfo.rows));
-  } 
+  }
 });
 
+app.post("/employeeprincipalpage", async (req, res) => {
+  var employeeid = req.body.id;
+  const employeeInfo = await getEmployee([employeeid]);
+  if (employeeInfo.rows.length !== 0) {
+    res.send(JSON.stringify(employeeInfo.rows));
+  }
+});
+app.post("/employeeworks", async (req, res) => {
+  var id = req.body.employeeid;
+  var works = req.body.employeeworks;
+  var prices = req.body.employeeprices;
+  var values = [id, works, prices];
+  insertWorks(values);
+});
 app.post("/usersignup", async (req, res) => {
   var name = req.body.username;
   var email = req.body.useremail;

@@ -32,6 +32,7 @@ CREATE TABLE employeework(
   id_employee TEXT,
   id_work INTEGER,
   price INTEGER,
+  PRIMARY KEY(id_employee, id_work),
   FOREIGN KEY(id_employee) REFERENCES employees(id_employee),
   FOREIGN KEY(id_work) REFERENCES works(id_work)
-)
+);
