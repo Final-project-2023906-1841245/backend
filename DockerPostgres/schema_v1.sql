@@ -27,3 +27,11 @@ CREATE TABLE works(
 	id_work INTEGER PRIMARY KEY,
   work_name TEXT UNIQUE NOT NULL	
 );
+
+CREATE TABLE employeework(
+  id_employee TEXT,
+  id_work INTEGER,
+  price INTEGER,
+  FOREIGN KEY(id_employee) REFERENCES employees(id_employee),
+  FOREIGN KEY(id_work) REFERENCES works(id_work)
+)
