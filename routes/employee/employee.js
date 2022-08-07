@@ -60,12 +60,24 @@ router.post("/works", async (req, res) => {
 
 router.post("/principalpage", async (req, res) => {
   var employeeid = req.body.id;
-  const employeeInfo = await query(
+  const employeeinfo = await query(
     "SELECT * FROM employees WHERE id_employee=$1",
     [employeeid]
   );
-  if (employeeInfo.rows.length !== 0) {
-    res.send(JSON.stringify(employeeInfo.rows));
+
+  const employeework = await query(
+    "SELECT w.work_name FROM employeework AS ew JOIN works AS w ON w.id_work = ew.id_work WHERE id_employee=$1",
+    [employeeid]
+  );
+  var info = [employeeinfo.rows, employeework.rows];
+
+
+  
+  if (employeeinfo.rows.length !== 0) {
+    res.write(JSON.stringify(info));
+    res.end();
+  
   }
+  
 });
 module.exports = router;
