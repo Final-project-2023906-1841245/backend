@@ -20,11 +20,11 @@ CREATE TABLE employees(
 	id_employee TEXT PRIMARY KEY,
   employee_name TEXT UNIQUE NOT NULL,
   email TEXT NOT NULL,
-	isFree BOOLEAN
+	is_free BOOLEAN
 );
 
 CREATE TABLE works(
-	id_work INTEGER PRIMARY KEY,
+	id_work SERIAL PRIMARY KEY,
   work_name TEXT UNIQUE NOT NULL	
 );
 

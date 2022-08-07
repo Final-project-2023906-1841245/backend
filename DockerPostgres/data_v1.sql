@@ -9,11 +9,11 @@ INSERT INTO users(user_phone, user_name, email) VALUES ('3127676379', 'Nicolas S
 INSERT INTO employees(id_employee, employee_name, email) VALUES ('1003952041', 'Laura Moyano', 'lili@hotmail.com');
 
 /* Initial works */
-INSERT INTO works(id_work, work_name) VALUES (1, 'English teacher');
-INSERT INTO works(id_work, work_name) VALUES (2, 'chef');
-INSERT INTO works(id_work, work_name) VALUES (3, 'veterinarian');
-INSERT INTO works(id_work, work_name) VALUES (4, 'Teacher musician');
-INSERT INTO works(id_work, work_name) VALUES (5, 'Driver');
+INSERT INTO works( work_name) VALUES ( 'English Teacher');
+INSERT INTO works( work_name) VALUES ( 'Chef');
+INSERT INTO works(work_name) VALUES ( 'Veterinarian');
+INSERT INTO works(work_name) VALUES ( 'Music Teacher');
+INSERT INTO works(work_name) VALUES ( 'Driver');
 
 /* Initial employeework */
 INSERT INTO employeework VALUES ('1003952041', 2, 10000);

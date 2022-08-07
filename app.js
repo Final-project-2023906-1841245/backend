@@ -29,6 +29,14 @@ const getUser = async (values) => {
   return answer;
 };
 
+const getEmployeeWork = async (values) => {
+  const answer = await pool.query(
+    "SELECT w.work_name FROM employeework AS ew JOIN works AS w ON w.id_work = ew.id_work WHERE id_employee=$1",
+    values
+  );
+  return answer;
+};
+
 const getUser1 = async (values) => {
   const answer = await pool.query("SELECT * FROM users WHERE user_phone=$1", [
     values,
@@ -128,10 +136,20 @@ app.post("/userprincipalpage", async (req, res) => {
 app.post("/employeeprincipalpage", async (req, res) => {
   var employeeid = req.body.id;
   const employeeInfo = await getEmployee([employeeid]);
-  if (employeeInfo.rows.length !== 0) {
+
+  const employeeWork = await getEmployeeWork([employeeid]);
+  console.log(employeeWork);
+ 
+  
+  if (employeeInfo.rows.length !== 0  ) {
     res.send(JSON.stringify(employeeInfo.rows));
+    res.send(JSON.stringify(employeeWork.rows));
+
   }
+  
 });
+
+
 app.post("/employeeworks", async (req, res) => {
   var id = req.body.employeeid;
   var works = req.body.employeeworks;
@@ -139,6 +157,7 @@ app.post("/employeeworks", async (req, res) => {
   var values = [id, works, prices];
   insertWorks(values);
 });
+
 app.post("/usersignup", async (req, res) => {
   var name = req.body.username;
   var email = req.body.useremail;
