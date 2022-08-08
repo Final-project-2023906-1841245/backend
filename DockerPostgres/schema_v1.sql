@@ -9,18 +9,20 @@ CREATE DATABASE mande_db
     TEMPLATE template0;
 
 \c mande_db
-
+CREATE EXTENSION postgis;
 CREATE TABLE users(
 	user_phone TEXT PRIMARY KEY,
   user_name TEXT UNIQUE NOT NULL,
-	email TEXT NOT NULL
+	email TEXT NOT NULL,
+  geolocation geography(point)
 );
 
 CREATE TABLE employees(
 	id_employee TEXT PRIMARY KEY,
   employee_name TEXT UNIQUE NOT NULL,
   email TEXT NOT NULL,
-	is_free BOOLEAN
+	is_free BOOLEAN,
+  geolocation geography(point)
 );
 
 CREATE TABLE works(
