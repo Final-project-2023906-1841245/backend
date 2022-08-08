@@ -22,14 +22,15 @@ router.post("/signup", async (req, res) => {
   var email = req.body.employeeemail;
   var id = req.body.employeeid;
   var address = req.body.employeeaddress;
-  geocode(address);
-  const values = [id, name, email];
+  var description = req.body.employeedescription;
+  // geocode(address);
+  const values = [id, name, email, description];
   const searchEmployee = await query(
     "SELECT * FROM employees WHERE id_employee=$1",
     [id]
   );
   if (searchEmployee.rows.length == 0) {
-    await query("INSERT INTO employees VALUES($1,$2,$3)", values);
+    await query("INSERT INTO employees VALUES($1,$2,$3,$4)", values);
     res.send(true);
   } else {
     res.send(false);

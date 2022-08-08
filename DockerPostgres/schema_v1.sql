@@ -13,13 +13,15 @@ CREATE DATABASE mande_db
 CREATE TABLE users(
 	user_phone TEXT PRIMARY KEY,
   user_name TEXT UNIQUE NOT NULL,
-	email TEXT NOT NULL
+	email TEXT NOT NULL,
+  user_description TEXT
 );
 
 CREATE TABLE employees(
 	id_employee TEXT PRIMARY KEY,
   employee_name TEXT UNIQUE NOT NULL,
   email TEXT NOT NULL,
+  employee_description TEXT,
 	is_free BOOLEAN
 );
 
