@@ -14,7 +14,8 @@ CREATE TABLE users(
 	user_phone TEXT PRIMARY KEY,
   user_name TEXT UNIQUE NOT NULL,
 	email TEXT NOT NULL,
-  geolocation geography(point)
+  geolocation geography(point),
+  user_description TEXT
 );
 
 CREATE TABLE employees(
@@ -22,7 +23,8 @@ CREATE TABLE employees(
   employee_name TEXT UNIQUE NOT NULL,
   email TEXT NOT NULL,
 	is_free BOOLEAN,
-  geolocation geography(point)
+  geolocation geography(point),
+  employee_description TEXT
 );
 
 CREATE TABLE works(
