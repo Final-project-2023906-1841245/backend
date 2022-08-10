@@ -17,6 +17,9 @@ const employeeRouter = require("./routes/employee/employee.js");
 app.use("/user", userRouter);
 app.use("/employee", employeeRouter);
 
+
+
+
 app.listen(port, () => {
   console.log("The server is running on port 5000");
 });

@@ -14,7 +14,8 @@ CREATE TABLE users(
 	user_phone TEXT PRIMARY KEY,
   user_name TEXT UNIQUE NOT NULL,
 	email TEXT NOT NULL,
-  user_description TEXT
+  user_description TEXT,
+  user_photo TEXT
 );
 
 CREATE TABLE employees(
@@ -22,6 +23,7 @@ CREATE TABLE employees(
   employee_name TEXT UNIQUE NOT NULL,
   email TEXT NOT NULL,
   employee_description TEXT,
+  employee_photo TEXT,
 	is_free BOOLEAN
 );
 

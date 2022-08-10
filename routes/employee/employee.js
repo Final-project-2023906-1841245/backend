@@ -2,6 +2,19 @@ var express = require("express");
 var router = express.Router();
 const query = require("../pool_connection");
 const geocode = require("../geocode.js");
+const multer  = require('multer');
+
+var storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, './uploads')
+  },
+  filename: function (req, file, cb) {
+    cb(null, file.originalname)
+  }
+});
+
+var upload = multer({ storage: storage });
+
 
 router.post("/login", async (req, res) => {
   var id = req.body.employeeid;
@@ -71,8 +84,6 @@ router.post("/principalpage", async (req, res) => {
     [employeeid]
   );
   var info = [employeeinfo.rows, employeework.rows];
-
-
   
   if (employeeinfo.rows.length !== 0) {
     res.write(JSON.stringify(info));
@@ -81,4 +92,14 @@ router.post("/principalpage", async (req, res) => {
   }
   
 });
+
+router.post('/principalpage/upload', upload.single('profile-file'), function (req, res, next) {
+  // req.file is the `profile-file` file
+  // req.body will hold the text fields, if there were any
+  var response = JSON.stringify(req.file.path);
+ 
+  res.send(JSON.stringify(req.file.path));
+ 
+});
+
 module.exports = router;
