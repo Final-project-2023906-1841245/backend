@@ -18,12 +18,11 @@ router.post("/login", async (req, res) => {
 });
 
 router.post("/signup", async (req, res) => {
-  
   var name = req.body.username;
   var email = req.body.useremail;
   var phone = req.body.userphone;
   var address = req.body.useraddress;
-  var description= req.body.userdescription;
+  var description = req.body.userdescription;
   // geocode(address);
   const values = [phone, name, email, description];
   const searchUser = await query(
@@ -45,6 +44,22 @@ router.post("/principalpage", async (req, res) => {
   ]);
   if (userInfo.rows.length !== 0) {
     res.send(JSON.stringify(userInfo.rows));
+  }
+});
+
+router.get("/principalpage/jobslist", async (req, res) => {
+  const works = await query("SELECT work_name FROM works");
+  res.send(works.rows);
+});
+
+router.post("/getworkers", async (req, res) => {
+  var user_phone = req.body.phone;
+  var work_name = req.body.work_name;
+  var values = [work_name, user_phone];
+  const workers = await query("SELECT * FROM getWorkers($1, $2)", values);
+  if (workers.rows.length !== 0) {
+    console.log(workers.rows);
+    res.send(workers.rows);
   }
 });
 
