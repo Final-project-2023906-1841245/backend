@@ -10,21 +10,34 @@ CREATE DATABASE mande_db
 
 \c mande_db
 
+CREATE EXTENSION postgis;
+
 CREATE TABLE users(
 	user_phone TEXT PRIMARY KEY,
   user_name TEXT UNIQUE NOT NULL,
 	email TEXT NOT NULL,
+<<<<<<< HEAD
   user_description TEXT,
   user_photo TEXT
+=======
+  geolocation geography(point),
+  user_description TEXT
+>>>>>>> 66d1480f4a2dbb18cd32a6efaf81d5aff17951b4
 );
 
 CREATE TABLE employees(
 	id_employee TEXT PRIMARY KEY,
   employee_name TEXT UNIQUE NOT NULL,
   email TEXT NOT NULL,
+<<<<<<< HEAD
   employee_description TEXT,
   employee_photo TEXT,
 	is_free BOOLEAN
+=======
+	is_free BOOLEAN,
+  geolocation geography(point),
+  employee_description TEXT
+>>>>>>> 66d1480f4a2dbb18cd32a6efaf81d5aff17951b4
 );
 
 CREATE TABLE works(
@@ -40,3 +53,24 @@ CREATE TABLE employeework(
   FOREIGN KEY(id_employee) REFERENCES employees(id_employee),
   FOREIGN KEY(id_work) REFERENCES works(id_work)
 );
+
+CREATE OR REPLACE FUNCTION getWorkers(work text, phone text) RETURNS TABLE(
+  employee_name TEXT, work_name TEXT, price INTEGER, distance float
+)
+AS $$
+BEGIN
+  DROP TABLE IF EXISTS result;
+  CREATE TEMP TABLE result AS SELECT e.employee_name, wk.work_name, e.geolocation, ew.price
+  FROM employees as e 
+  JOIN employeework ew ON e.id_employee=ew.id_employee
+  JOIN works as wk ON ew.id_work=wk.id_work WHERE wk.work_name=work;
+
+  RETURN QUERY SELECT e.employee_name, e.work_name, e.price, ST_Distance(e.geolocation, usuar.geolocation) as distance
+  from result e,
+  lateral(
+    select geolocation from users where user_phone=phone
+  ) as usuar
+  order by distance limit 5;
+  DROP TABLE result;
+END; $$
+LANGUAGE 'plpgsql';

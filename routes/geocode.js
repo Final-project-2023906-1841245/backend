@@ -1,3 +1,5 @@
+const fetch = require("node-fetch");
+
 const geocode = async (address) => {
   const encodedAddress = encodeURIComponent(address).replaceAll("%2C", ",");
   console.log(encodedAddress);
@@ -9,10 +11,10 @@ const geocode = async (address) => {
       if (data) {
         const lat = data.data[0].latitude;
         const lon = data.data[0].longitude;
-        console.log(lat);
-        console.log(lon);
+        console.log(lat, lon);
+        return [lon, lat];
       }
     });
 };
-
+geocode("Ms Alice Smith Apartment 1c 213 Derrick Street Boston, MA 02130 USA");
 module.exports = geocode;

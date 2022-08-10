@@ -84,13 +84,10 @@ router.post("/principalpage", async (req, res) => {
     [employeeid]
   );
   var info = [employeeinfo.rows, employeework.rows];
-  
   if (employeeinfo.rows.length !== 0) {
     res.write(JSON.stringify(info));
     res.end();
-  
   }
-  
 });
 
 router.post('/principalpage/upload', upload.single('profile-file'), function (req, res, next) {

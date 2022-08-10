@@ -1,14 +1,26 @@
 \c mande_db
 
-/* Initial users */
-INSERT INTO users(user_phone, user_name, email, user_description) VALUES ('3148528895', 'Sebastian Caicedo', 'sdrivert@hotmail.com', 'Passionate software developer');
-INSERT INTO users(user_phone, user_name, email, user_description) VALUES ('3014579535', 'Laura Moyano', 'laumoya@hotmail.com', 'animalist and artist');
-INSERT INTO users(user_phone, user_name, email, user_description) VALUES ('3127676379', 'Nicolas Silva', 'nicosilzu@hotmail.com', 'I only live for the moment');
+-- /* Initial users */
+INSERT INTO users(user_phone, user_name, email) VALUES ('31428895', 'Sebastian Caicedo', 'sdrivert@hotmail.com');
+INSERT INTO users(user_phone, user_name, email) VALUES ('3014579535', 'Laura Moyano', 'laumoya@hotmail.com');
+INSERT INTO users(user_phone, user_name, email) VALUES ('3127676479', 'Nicolas Silva', 'nicosilzu@hotmail.com');
+UPDATE users SET geolocation = ST_MakePoint(-70.201, 42.103) WHERE user_phone='3014579535';
 
-/* Initial employees */
-INSERT INTO employees(id_employee, employee_name, email, employee_description) VALUES ('1003952041', 'Laura Moyano', 'lili@hotmail.com', 'Happy, Happy');
 
-/* Initial works */
+
+-- /* Initial employees */
+INSERT INTO employees(id_employee, employee_name, email) VALUES ('1003952041', 'Dario Gomez', 'dario@hotmail.com');
+INSERT INTO employees(id_employee, employee_name, email) VALUES ('666777', 'Gustavo Petro', 'gus@hotmail.com');
+INSERT INTO employees(id_employee, employee_name, email) VALUES ('31690420', 'Maluma', 'maluma@hotmail.com');
+INSERT INTO employees(id_employee, employee_name, email) VALUES ('1006166420', 'Tiranosaurio', 'trex@hotmail.com');
+UPDATE employees SET geolocation = ST_MakePoint(-76.517438, 3.438921) WHERE id_employee='1003952041';
+UPDATE employees SET geolocation = ST_MakePoint(-72.9385, 41.6643) WHERE id_employee='666777';
+UPDATE employees SET geolocation = ST_MakePoint(-70.500, 42.3643) WHERE id_employee='31690420';
+UPDATE employees SET geolocation = ST_MakePoint(-70.500, 42.6643) WHERE id_employee='1006166420';
+
+
+
+-- /* Initial works */
 INSERT INTO works(work_name) VALUES ( 'English Teacher');
 INSERT INTO works(work_name) VALUES ( 'Chef');
 INSERT INTO works(work_name) VALUES ( 'Veterinarian');
@@ -23,5 +35,8 @@ INSERT INTO works(work_name) VALUES ( 'Baby Sister');
 INSERT INTO works(work_name) VALUES ( 'Farmer');
 
 
-/* Initial employeework */
+-- /* Initial employeework */
 INSERT INTO employeework VALUES ('1003952041', 2, 10000);
+INSERT INTO employeework VALUES('31690420', 1, 5000);
+INSERT INTO employeework VALUES('1006166420', 2, 20000);
+
