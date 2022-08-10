@@ -16,28 +16,17 @@ CREATE TABLE users(
 	user_phone TEXT PRIMARY KEY,
   user_name TEXT UNIQUE NOT NULL,
 	email TEXT NOT NULL,
-<<<<<<< HEAD
-  user_description TEXT,
-  user_photo TEXT
-=======
   geolocation geography(point),
   user_description TEXT
->>>>>>> 66d1480f4a2dbb18cd32a6efaf81d5aff17951b4
 );
 
 CREATE TABLE employees(
 	id_employee TEXT PRIMARY KEY,
   employee_name TEXT UNIQUE NOT NULL,
   email TEXT NOT NULL,
-<<<<<<< HEAD
-  employee_description TEXT,
-  employee_photo TEXT,
-	is_free BOOLEAN
-=======
 	is_free BOOLEAN,
   geolocation geography(point),
   employee_description TEXT
->>>>>>> 66d1480f4a2dbb18cd32a6efaf81d5aff17951b4
 );
 
 CREATE TABLE works(
