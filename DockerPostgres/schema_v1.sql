@@ -17,7 +17,8 @@ CREATE TABLE users(
   user_name TEXT UNIQUE NOT NULL,
 	email TEXT NOT NULL,
   geolocation geography(point),
-  user_description TEXT
+  user_description TEXT,
+  img TEXT UNIQUE
 );
 
 CREATE TABLE employees(
@@ -25,7 +26,8 @@ CREATE TABLE employees(
   employee_name TEXT UNIQUE NOT NULL,
   email TEXT NOT NULL,
   geolocation geography(point),
-  employee_description TEXT
+  employee_description TEXT,
+  img TEXT UNIQUE
 );
 
 CREATE TABLE works(
