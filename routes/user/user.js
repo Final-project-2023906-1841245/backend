@@ -2,22 +2,18 @@ var express = require("express");
 var router = express.Router();
 const query = require("../pool_connection");
 const geocode = require("../geocode.js");
-const multer  = require('multer');
-
-
+const multer = require("multer");
 
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, './uploads')
+    cb(null, "./public");
   },
   filename: function (req, file, cb) {
-    cb(null, file.originalname)
-  }
+    cb(null, file.originalname);
+  },
 });
 
-var upload = multer({ storage: storage });
-
-
+var upload = multer({ storage: storage }).single("file");
 
 router.post("/login", async (req, res) => {
   var email = req.body.useremail;
@@ -79,14 +75,20 @@ router.post("/getworkers", async (req, res) => {
   }
 });
 
-router.post('/principalpage/upload', upload.single('profile-file'), function (req, res, next) {
-  // req.file is the `profile-file` file
-  // req.body will hold the text fields, if there were any
-  var response = JSON.stringify(req.file.path);
- 
-  res.send(JSON.stringify(req.file.path));
- 
+router.post("/principalpage/upload", (req, res) => {
+  upload(req, res, (err) => {
+    if (err) {
+      res.sendStatus(500);
+    }
+    res.send(req.file);
+  });
 });
 
+router.post("/principalpage/inserturl", async (req, res) => {
+  var phone = req.body[0];
+  var img = req.body[1];
+  await query("UPDATE users SET img=$1 WHERE user_phone=$2", [img, phone]);
+  console.log(req.body);
+});
 
 module.exports = router;
