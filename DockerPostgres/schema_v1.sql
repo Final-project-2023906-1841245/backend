@@ -24,7 +24,6 @@ CREATE TABLE employees(
 	id_employee TEXT PRIMARY KEY,
   employee_name TEXT UNIQUE NOT NULL,
   email TEXT NOT NULL,
-	is_free BOOLEAN,
   geolocation geography(point),
   employee_description TEXT
 );
@@ -41,6 +40,19 @@ CREATE TABLE employeework(
   PRIMARY KEY(id_employee, id_work),
   FOREIGN KEY(id_employee) REFERENCES employees(id_employee),
   FOREIGN KEY(id_work) REFERENCES works(id_work)
+);
+
+CREATE TABLE hires(
+  id_hire SERIAL PRIMARY KEY,
+  id_employee TEXT,
+  id_work INTEGER,
+  user_phone TEXT,
+  hire_date DATE,
+  hire_description TEXT,
+  hire_paymethod TEXT,
+  FOREIGN KEY(id_employee) REFERENCES employees(id_employee),
+  FOREIGN KEY(id_work) REFERENCES works(id_work),
+  FOREIGN KEY(user_phone) REFERENCES users(user_phone)
 );
 
 CREATE OR REPLACE FUNCTION getWorkers(work text, phone text) RETURNS TABLE(
@@ -62,4 +74,5 @@ BEGIN
   order by distance limit 5;
   DROP TABLE result;
 END; $$
+
 LANGUAGE 'plpgsql';

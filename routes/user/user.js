@@ -88,5 +88,28 @@ router.post('/principalpage/upload', upload.single('profile-file'), function (re
  
 });
 
+router.post("/hire", async (req, res) => {
+  var idemployee = req.body.idemployee;
+
+  var userid = req.body.userid;
+  var hiredate = req.body.hiredate;
+  var servicedescription = req.body.servicedescription;
+  var paymentmethod = req.body.paymentmethod;
+
+  
+  
+  const values = [idemployee, userid, hiredate, servicedescription, paymentmethod];
+  const inserthire = await query(
+    "SELECT * FROM hires WHERE user_phone=$1 AND email=$2",
+    [phone, email]
+  );
+  if (inserthire.rows.length == 0) {
+    await query("INSERT INTO users VALUES($1,$2,$3,$4)", values);
+    res.send(true);
+  } else {
+    res.send(false);
+  }
+});
+
 
 module.exports = router;
