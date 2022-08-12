@@ -145,9 +145,10 @@ router.post("/hire", async (req, res) => {
 router.post("/gethires", async (req, res) => {
   var idphone = req.body.phone;
 
-  const userHires = await query("SELECT * FROM hires WHERE user_phone=$1", [
+  const userHires = await query("SELECT * FROM hires AS h JOIN works AS w ON w.id_work = h.id_work WHERE user_phone=$1", [
     idphone,
   ]);
+  console.log(userHires.body);
   if (userHires.rows.length !== 0) {
     res.send(JSON.stringify(userHires.rows));
     

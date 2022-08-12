@@ -140,7 +140,7 @@ router.post("/gethires", async (req, res) => {
   var idemployee = req.body.employeeid;
 
 
-  const employeeHires = await query("SELECT * FROM hires WHERE id_employee=$1", [
+  const employeeHires = await query("SELECT * FROM hires AS h JOIN works AS w ON w.id_work = h.id_work WHERE id_employee=$1", [
     idemployee,
   ]);
   if (employeeHires.rows.length !== 0) {
