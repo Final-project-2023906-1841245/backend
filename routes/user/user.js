@@ -64,11 +64,11 @@ router.post("/signup", async (req, res) => {
       const searchUser = response
       if (searchUser.rows.length == 0) {
         query("INSERT INTO users(user_phone, user_name, email, user_description) VALUES($1,$2,$3,$4)", values).then(() => {
-          query(`UPDATE users SET geolocation = ST_MakePoint(${coordinates[0]}, ${coordinates[1]}) WHERE user_phone=$1`, [phone]).then(()=>{
+          query(`UPDATE users SET geolocation = ST_MakePoint(${coordinates[0]}, ${coordinates[1]}) WHERE user_phone=$1`, [phone]).then(() => {
             res.send(true);
           })
-        }).catch(()=>{res.send(false);})
-        
+        }).catch(() => { res.send(false); })
+
       }
     })
   }
@@ -118,5 +118,40 @@ router.post("/principalpage/inserturl", async (req, res) => {
 });
 // geocode("1600 Pennsylvania Ave NW, Washington DC");
 
+
+router.post("/hire", async (req, res) => {
+
+  var idemployee = req.body.employeeid;
+  var serviceid = parseInt(req.body.serviceid);
+  var userid = req.body.userid;
+  var hiredate = req.body.hiredate;
+  var servicedescription = req.body.servicedescription;
+  var paymentmethod = req.body.paymentmethod;
+
+  console.log(req.body)
+  
+  const values = [idemployee, serviceid, userid, hiredate, servicedescription, paymentmethod];
+  const inserthire = await query(
+    "SELECT * FROM hires",
+  );
+  if (inserthire.rows.length >= 0) {
+    await query("INSERT INTO hires(id_employee, id_work, user_phone, hire_date, hire_description,  hire_paymethod) VALUES($1,$2,$3,$4,$5,$6)", values);
+    res.send(true);
+  } else {
+    res.send(false);
+  }
+});
+
+router.post("/gethires", async (req, res) => {
+  var idphone = req.body.phone;
+
+  const userHires = await query("SELECT * FROM hires WHERE user_phone=$1", [
+    idphone,
+  ]);
+  if (userHires.rows.length !== 0) {
+    res.send(JSON.stringify(userHires.rows));
+    
+  }
+});
 
 module.exports = router;

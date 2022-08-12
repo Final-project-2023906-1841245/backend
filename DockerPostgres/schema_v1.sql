@@ -46,9 +46,9 @@ CREATE TABLE employeework(
 
 CREATE TABLE hires(
   id_hire SERIAL PRIMARY KEY,
-  id_employee TEXT,
-  id_work INTEGER,
-  user_phone TEXT,
+  id_employee TEXT NOT NULL,
+  id_work INTEGER NOT NULL,
+  user_phone TEXT NOT NULL,
   hire_date DATE,
   hire_description TEXT,
   hire_paymethod TEXT,
