@@ -58,17 +58,17 @@ CREATE TABLE hires(
 );
 
 CREATE OR REPLACE FUNCTION getWorkers(work text, phone text) RETURNS TABLE(
-  employee_name TEXT, work_name TEXT, price INTEGER, distance float
+  employee_id TEXT, employee_name TEXT, work_name TEXT, price INTEGER, distance float
 )
 AS $$
 BEGIN
   DROP TABLE IF EXISTS result;
-  CREATE TEMP TABLE result AS SELECT e.employee_name, wk.work_name, e.geolocation, ew.price
+  CREATE TEMP TABLE result AS SELECT e.id_employee, e.employee_name, wk.work_name, e.geolocation, ew.price
   FROM employees as e 
   JOIN employeework ew ON e.id_employee=ew.id_employee
   JOIN works as wk ON ew.id_work=wk.id_work WHERE wk.work_name=work;
 
-  RETURN QUERY SELECT e.employee_name, e.work_name, e.price, ST_Distance(e.geolocation, usuar.geolocation) as distance
+  RETURN QUERY SELECT e.id_employee, e.employee_name, e.work_name, e.price, ST_Distance(e.geolocation, usuar.geolocation) as distance
   from result e,
   lateral(
     select geolocation from users where user_phone=phone

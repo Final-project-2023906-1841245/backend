@@ -1,8 +1,25 @@
 var express = require("express");
 var router = express.Router();
 const query = require("../pool_connection");
-const geocode = require("../geocode.js");
 const multer = require("multer");
+
+const fetch = require("node-fetch");
+
+const geocode = async (address) => {
+  const encodedAddress = encodeURIComponent(address).replace(/%2C/g, ',');
+  const key = "ed56555d4bc461f0a49d040823bd24a0";
+  const url = `http://api.positionstack.com/v1/forward?access_key=${key}&query=${encodedAddress}`;
+  return fetch(url)
+    .then((response) => {
+      return response.json().then((data) => {
+        return (data);
+      }).catch((err) => {
+        console.log(err)
+      })
+    })
+
+
+};
 
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -35,18 +52,28 @@ router.post("/signup", async (req, res) => {
   var phone = req.body.userphone;
   var address = req.body.useraddress;
   var description = req.body.userdescription;
-  // geocode(address);
-  const values = [phone, name, email, description];
-  const searchUser = await query(
-    "SELECT * FROM users WHERE user_phone=$1 AND email=$2",
-    [phone, email]
-  );
-  if (searchUser.rows.length == 0) {
-    await query("INSERT INTO users VALUES($1,$2,$3,$4)", values);
-    res.send(true);
-  } else {
-    res.send(false);
+  geocode(req.body.useraddress).then((data) => {
+    var lon = data.data[0].longitude
+    var lat = data.data[0].latitude
+    const coordinates = [lon, lat]
+    const values = [phone, name, email, description];
+    query(
+      "SELECT * FROM users WHERE user_phone=$1 AND email=$2",
+      [phone, email]
+    ).then((response) => {
+      const searchUser = response
+      if (searchUser.rows.length == 0) {
+        query("INSERT INTO users(user_phone, user_name, email, user_description) VALUES($1,$2,$3,$4)", values).then(() => {
+          query(`UPDATE users SET geolocation = ST_MakePoint(${coordinates[0]}, ${coordinates[1]}) WHERE user_phone=$1`, [phone]).then(()=>{
+            res.send(true);
+          })
+        }).catch(()=>{res.send(false);})
+        
+      }
+    })
   }
+  )
+
 });
 
 router.post("/principalpage", async (req, res) => {
@@ -60,7 +87,8 @@ router.post("/principalpage", async (req, res) => {
 });
 
 router.get("/principalpage/jobslist", async (req, res) => {
-  const works = await query("SELECT work_name FROM works");
+  const works = await query("SELECT work_name, id_work FROM works");
+  console.log(works)
   res.send(works.rows);
 });
 
@@ -70,7 +98,6 @@ router.post("/getworkers", async (req, res) => {
   var values = [work_name, user_phone];
   const workers = await query("SELECT * FROM getWorkers($1, $2)", values);
   if (workers.rows.length !== 0) {
-    console.log(workers.rows);
     res.send(workers.rows);
   }
 });
@@ -88,7 +115,8 @@ router.post("/principalpage/inserturl", async (req, res) => {
   var phone = req.body[0];
   var img = req.body[1];
   await query("UPDATE users SET img=$1 WHERE user_phone=$2", [img, phone]);
-  console.log(req.body);
 });
+// geocode("1600 Pennsylvania Ave NW, Washington DC");
+
 
 module.exports = router;

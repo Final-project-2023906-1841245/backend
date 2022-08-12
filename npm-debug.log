@@ -1,0 +1,28 @@
+0 info it worked if it ends with ok
+1 verbose cli [
+1 verbose cli   '/home/lalala/.nvm/versions/node/v16.13.1/bin/node',
+1 verbose cli   '/home/lalala/node_modules/.bin/npm',
+1 verbose cli   'run',
+1 verbose cli   'app.js'
+1 verbose cli ]
+2 info using npm@2.15.12
+3 info using node@v16.13.1
+4 verbose stack Error: missing script: app.js
+4 verbose stack     at run (/home/lalala/node_modules/npm/lib/run-script.js:142:19)
+4 verbose stack     at /home/lalala/node_modules/npm/lib/run-script.js:58:5
+4 verbose stack     at /home/lalala/node_modules/npm/node_modules/read-package-json/read-json.js:356:5
+4 verbose stack     at checkBinReferences_ (/home/lalala/node_modules/npm/node_modules/read-package-json/read-json.js:320:45)
+4 verbose stack     at final (/home/lalala/node_modules/npm/node_modules/read-package-json/read-json.js:354:3)
+4 verbose stack     at then (/home/lalala/node_modules/npm/node_modules/read-package-json/read-json.js:124:5)
+4 verbose stack     at /home/lalala/node_modules/npm/node_modules/read-package-json/read-json.js:311:12
+4 verbose stack     at /home/lalala/node_modules/npm/node_modules/graceful-fs/graceful-fs.js:78:16
+4 verbose stack     at FSReqCallback.readFileAfterClose [as oncomplete] (node:internal/fs/read_file_context:68:3)
+5 verbose cwd /home/lalala/app/backend
+6 error Linux 5.4.0-113-generic
+7 error argv "/home/lalala/.nvm/versions/node/v16.13.1/bin/node" "/home/lalala/node_modules/.bin/npm" "run" "app.js"
+8 error node v16.13.1
+9 error npm  v2.15.12
+10 error missing script: app.js
+11 error If you need help, you may report this error at:
+11 error     <https://github.com/npm/npm/issues>
+12 verbose exit [ 1, true ]
