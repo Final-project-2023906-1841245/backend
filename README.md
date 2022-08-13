@@ -4,9 +4,12 @@ Mande, es una aplicación que permite, conseguir personas trabajadoras, expertas
 
 # Enlaces relacionados:
 
-**Presentación**: https://www.youtube.com/watch?v=vdyR8YAowUU
-**Manual de usuario**: https://docs.google.com/document/d/1nHwzMbiCEYHWm1sAGGbWYrOuxVusCnmql33Ax-Vy2o0/edit#heading=h.6aciwyxxuz4i
-**Infome final**: https://docs.google.com/document/d/13LnipPw8jiooNUWym9x-fsF9eJ6kg_OfSZR7bI_sb2s/edit
+**Presentación**: 
+https://www.youtube.com/watch?v=vdyR8YAowUU
+**Manual de usuario**: 
+https://docs.google.com/document/d/1nHwzMbiCEYHWm1sAGGbWYrOuxVusCnmql33Ax-Vy2o0/edit#heading=h.6aciwyxxuz4i
+**Infome final**: 
+https://docs.google.com/document/d/13LnipPw8jiooNUWym9x-fsF9eJ6kg_OfSZR7bI_sb2s/edit
 
 # Consideraciones sobre el funcionamiento:
 
