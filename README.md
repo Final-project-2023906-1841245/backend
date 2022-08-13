@@ -1,5 +1,22 @@
 # MANDE
-Mande, es una aplicación que permite, conseguir personas trabajadoras, expertas y honestas para realizar a domicilio labores del día a día en el hogar.  
+
+Mande, es una aplicación que permite, conseguir personas trabajadoras, expertas y honestas para realizar a domicilio labores del día a día en el hogar.
+
+# Enlaces relacionados:
+
+**Presentación**: https://www.youtube.com/watch?v=vdyR8YAowUU
+**Manual de usuario**: https://docs.google.com/document/d/1nHwzMbiCEYHWm1sAGGbWYrOuxVusCnmql33Ax-Vy2o0/edit#heading=h.6aciwyxxuz4i
+**Infome final**: https://docs.google.com/document/d/13LnipPw8jiooNUWym9x-fsF9eJ6kg_OfSZR7bI_sb2s/edit
+
+# Consideraciones sobre el funcionamiento:
+
+1. La aplicación Mande utiliza un API externo GRATUITO para el proceso de geocoding, es decir, se utiliza para convertir direcciones normales como '1600 Pennsylvania Ave NW, Washington DC' en coordenadas de latitud y longitud.
+   Dado que este API es gratuito a veces su funcionamiento no es el adecuado, por ende, en ciertos momentos puntuales del día (cuando el API tiene mayor demanda) la aplicación Mande puede ver su funcionamiento condicionado por falta de disponibilidad del API.
+
+2. El archivo .sh que se encuentra en el repositorio funciona exclusivamente para distribuciones Linux con Gnome y siempre
+   y cuando se haya creado previamente el contenedor de la base de datos. Siga los siguientes pasos en caso de que no quiera ejecutar el script.sh.
+
+# PASOS PARA LEVANTAR LA APLICACIÓN:
 
 # Pasos para levantar el backend y la base de datos
 
@@ -80,7 +97,8 @@ docker build -t ${USER_NAME}/mande_backend   .
 ```
 docker run -it --rm -p 5000:5000 --link mande_db:postgres --name mande_app -v $(pwd):/app ${USER_NAME}/mande_backend
 ```
-4- Finalmente ejecute el siguiente comando desplegar los contenedores:
+
+4- Si tiene creado el contenedor mande_db y tiene uns sitema Linux con Gnome, ejecute el siguiente comando para desplegar los contenedores:
 
 ```
 . script.sh
